@@ -1,0 +1,479 @@
+.page {
+    padding: 32px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+@media (max-width: 768px) {
+    .page {
+        padding: 32px 12px;
+    }
+}
+
+/* Header Section */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding-bottom: 32px;
+}
+
+.avatarContainer {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.avatarRing {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    z-index: 0;
+}
+
+.avatar {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--card);
+    border: 4px solid var(--background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--foreground);
+    z-index: 1;
+    overflow: hidden;
+}
+
+.levelBadge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 12px;
+    z-index: 2;
+    border: 2px solid var(--background);
+}
+
+.userInfo {
+    flex: 1;
+}
+
+.name {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.handle {
+    color: var(--secondary);
+    font-size: 1rem;
+    margin-bottom: 16px;
+}
+
+.bio {
+    color: var(--foreground-muted);
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+.editBtn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.editBtn:hover {
+    background: var(--border);
+}
+
+/* Stats Section */
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.statCard {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.statCard:hover {
+    transform: translateY(-2px);
+}
+
+.shareBtn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    color: var(--secondary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    display: flex;
+    transition: all 0.2s;
+    opacity: 1;
+    /* Always visible */
+    z-index: 5;
+}
+
+.shareBtn:hover {
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+
+.statIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.statContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.statValue {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.statLabel {
+    color: var(--secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Heatmap Section */
+.heatmapSection {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px 16px;
+}
+
+.sectionTitle {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.heatmapContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.heatmapFlexContainer {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    /* Align to bottom so labels align with grid */
+}
+
+.dayLabels {
+    display: grid;
+    grid-template-rows: repeat(7, 14px);
+    gap: 4px;
+    padding-bottom: 8px;
+    /* Match scrollbar spacing */
+    padding-top: 24px;
+    /* Offset for month labels space */
+    font-size: 0.75rem;
+    color: var(--secondary);
+    text-align: right;
+    min-width: 30px;
+}
+
+/* Center text in label cells */
+.dayLabels span {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.heatmapScrollWrapper {
+    flex: 1;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    /* Space for scrollbar */
+    scrollbar-width: thin;
+}
+
+.heatmapInnerContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: max-content;
+}
+
+.monthLabels {
+    height: 16px;
+    line-height: 16px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--secondary);
+    padding: 0 4px;
+    margin-left: -10px;
+    /* Slight offset adjustment */
+}
+
+.heatmapGrid {
+    display: grid;
+    /* Use auto-fill or just large number of columns */
+    grid-template-columns: repeat(auto-fill, minmax(14px, 1fr));
+    /* Force specific flow */
+    grid-template-rows: repeat(7, 14px);
+    grid-auto-flow: column;
+    gap: 4px;
+}
+
+/* Override grid columns to be dynamic based on content length or large enough fixed */
+.heatmapGrid {
+    grid-template-columns: repeat(54, 14px);
+    /* 54 weeks cover a year + padding */
+}
+
+
+.heatBox {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 2px;
+    background: var(--border);
+}
+
+@media (min-width: 768px) {
+    .heatBox {
+        min-width: 10px;
+    }
+}
+
+.heatBox.l1 {
+    background: rgba(99, 102, 241, 0.4);
+}
+
+.heatBox.l2 {
+    background: rgba(99, 102, 241, 0.6);
+}
+
+.heatBox.l3 {
+    background: rgba(99, 102, 241, 0.8);
+}
+
+.heatBox.l4 {
+    background: #6366f1;
+}
+
+.headerInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.identity {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 24px;
+    }
+
+    .headerInfo {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .identity {
+        align-items: center;
+    }
+
+    .userInfo {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bio {
+        text-align: center;
+        margin-top: 12px;
+    }
+
+    .editBtn {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
+    }
+}
+
+.logoutSection {
+    margin-top: auto;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.logoutBtn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--secondary);
+    padding: 12px 32px;
+    border-radius: 99px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logoutBtn:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.tooltip {
+    position: fixed;
+    background: rgba(15, 23, 42, 0.95);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    pointer-events: none;
+    z-index: 1000;
+    transform: translate(-50%, -120%);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Settings Section */
+.settingsSection {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+}
+
+.settingRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.settingLabel {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--foreground);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.settingDesc {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    font-weight: 400;
+}
+
+/* iPhone Style Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border);
+    /* Default off color */
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input:checked+.slider {
+    background-color: var(--primary);
+    /* Active color */
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px var(--primary);
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+}

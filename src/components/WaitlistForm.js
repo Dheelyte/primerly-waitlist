@@ -1,5 +1,7 @@
 "use client";
 import { useState } from 'react';
+import { useToast } from '@/context/ToastContext';
+import { waitlist } from '@/services/api';
 import { ZapIcon, CheckIcon } from "@/components/Icons";
 import styles from './WaitlistForm.module.css';
 
@@ -7,17 +9,23 @@ export default function WaitlistForm() {
     const [email, setEmail] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { addToast } = useToast();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!email || !email.includes('@')) return;
 
         setLoading(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setLoading(false);
-        setSubmitted(true);
-        setEmail('');
+        try {
+            await waitlist.join(email);
+            setSubmitted(true);
+            setEmail('');
+        } catch (error) {
+            console.error('Failed to join waitlist:', error);
+            addToast(error.message || 'Failed to join waitlist', 'error');
+        } finally {
+            setLoading(false);
+        }
     };
 
     if (submitted) {
